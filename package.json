@@ -4,15 +4,15 @@
   "version": "1.2.8",
   "private": true,
   "scripts": {
-    "build:chrome": "VITE_BUILD_TARGET=chrome vite build",
-    "build:firefox": "VITE_BUILD_TARGET=firefox vite build",
-    "dev:ui": "VITE_BUILD_TARGET=chrome vite",
+    "build:chrome": "cross-env VITE_BUILD_TARGET=chrome vite build",
+    "build:firefox": "cross-env VITE_BUILD_TARGET=firefox vite build",
+    "dev:ui": "cross-env VITE_BUILD_TARGET=chrome vite",
     "dev:server": "php -d allow_url_include=on -S 127.0.0.1:8888 -t contrib",
     "lint": "eslint --ext .js,.ts,.vue ./src/ && prettier --check .",
     "lint:fix": "eslint --fix --ext .js,.ts,.vue ./src/ && prettier --write .",
     "types:check": "vue-tsc --noEmit",
-    "dist:chrome": "run build:chrome && env -C dist/chrome zip ../../${npm_package_name}-chrome.zip -FS -r .",
-    "dist:firefox": "run build:firefox && env -C dist/firefox zip ../../${npm_package_name}-firefox.zip -FS -r ."
+    "dist:chrome": "yarn build:chrome && cd dist/chrome && bestzip ../../HackBar-chrome.zip *",
+    "dist:firefox": "yarn build:firefox && cd dist/firefox && bestzip ../../HackBar-firefox.zip *"
   },
   "dependencies": {
     "@fontsource/roboto": "^5.1.0",
@@ -38,7 +38,9 @@
     "@typescript-eslint/eslint-plugin": "^8.18.2",
     "@typescript-eslint/parser": "^8.18.2",
     "@vitejs/plugin-vue": "^5.2.1",
+    "bestzip": "^2.2.1",
     "chrome-types": "^0.1.327",
+    "cross-env": "^10.1.0",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.31.0",
